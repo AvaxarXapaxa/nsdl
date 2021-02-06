@@ -16,16 +16,25 @@ void nk::Texture::_makeBlank(nk::Renderer& renderer, const Uint2& size) {
 }
 
 void nk::Texture::_loadSurface(nk::Renderer& renderer, nk::Surface& surface) {
-	this->_makeBlank(renderer, surface.getSize());
-
-	if (!this->isValid())
+	if (!renderer.isValid()) {
+		std::cerr << "NSDL: A texture was created with an invalid renderer!\n";
 		return;
-
+	}
+	 
 	if (!surface.isValid()) {
 		std::cerr << "NSDL: A texture was created with an invalid surface!\n";
 		return;
 	}
 
+	this->nk_renderer = &renderer;
+	this->sdl_texture = SDL_CreateTextureFromSurface(renderer.getSDLRenderer(), surface.getSDLSurface());
+
+	if (this->sdl_texture == nullptr) {
+		std::cerr << "SDL: Could not make a texture from a surface, Error: " << SDL_GetError() << '\n';
+		return;
+	}
+
+	/*
 	this->interact([&](U32* texture_pixels, Uint2 size) {
 		size_t pixel_amount = (size_t)size.x * size.y;
 
@@ -34,6 +43,7 @@ void nk::Texture::_loadSurface(nk::Renderer& renderer, nk::Surface& surface) {
 				texture_pixels[i] = pixels[i];
 		});
 	});
+	*/
 }
 
 nk::Texture::Texture(nk::Texture& copy) : Texture(*copy.nk_renderer, copy.getSize()) {

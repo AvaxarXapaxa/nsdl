@@ -35,7 +35,6 @@ namespace nk {
 			const bool flip_x = false, const bool flip_y = false,
 			const nk::Rect& clip = nk::Rect(0, 0, 0, 0));
 
-
 		Uint2 getSize() const;
 		Color getModulation() const;
 
@@ -45,6 +44,6 @@ namespace nk {
 
 		inline SDL_Texture* getSDLTexture() { return this->sdl_texture; }
 		inline nk::Renderer& getRenderer() { return *this->nk_renderer; }
-		inline bool isValid() const { return this->sdl_texture != nullptr && this->nk_renderer->isValid(); }
+		inline bool isValid() const { return this->sdl_texture != nullptr && this->nk_renderer != nullptr && this->nk_renderer->isValid(); }
 	};
 }

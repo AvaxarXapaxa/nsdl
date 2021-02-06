@@ -41,6 +41,7 @@
 #endif
 
 #include <glm/glm.hpp>
+#include <glm/ext.hpp>
 #include <boost/locale/encoding_utf.hpp>
 
 #include <SDL2/SDL.h>
