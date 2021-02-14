@@ -21,7 +21,7 @@ void loop() {
 
 	logo->setModulation(Color{ 255, 255, 255, 255 });
 	logo->draw(Uint2{ 400, 300 }, now * 90, Uint2{ 192, 192 }, Vec2{ std::sin(now) / 2 + 1.5f, std::sin(now) / 2 + 1.5f }, false, false);
-	logo->setModulation(Color{ 0, 0, 255, 255 });
+	logo->setModulation(Color{ 128, 128, 255, 128 });
 	logo->draw(Uint2{ 400, 300 }, now * 90, Uint2{ 192, 192 }, Vec2{ std::sin(now) / 2 + 1.5f, std::sin(now) / 2 + 1.5f }, false, false, nk::Rect(64, 64, 128, 128));
 
 	window->setTitle(L"FPS: " + std::to_wstring(window->fps));

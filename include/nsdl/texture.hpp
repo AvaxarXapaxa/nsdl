@@ -11,8 +11,12 @@ void nk::Texture::_makeBlank(nk::Renderer& renderer, const Uint2& size) {
 	this->sdl_texture = SDL_CreateTexture(renderer.getSDLRenderer(), NSDL_PIXEL_FORMAT,
 		SDL_TEXTUREACCESS_STREAMING, size.x, size.y
 	);
-	if (this->sdl_texture == nullptr)
+	if (this->sdl_texture == nullptr) {
 		std::cerr << "SDL: Unable to initialize an empty texture, Error: " << SDL_GetError() << '\n';
+		return;
+	}
+
+	SDL_SetTextureBlendMode(this->sdl_texture, SDL_BLENDMODE_BLEND);
 }
 
 void nk::Texture::_loadSurface(nk::Renderer& renderer, nk::Surface& surface) {
@@ -34,16 +38,7 @@ void nk::Texture::_loadSurface(nk::Renderer& renderer, nk::Surface& surface) {
 		return;
 	}
 
-	/*
-	this->interact([&](U32* texture_pixels, Uint2 size) {
-		size_t pixel_amount = (size_t)size.x * size.y;
-
-		surface.interact([&](U32* pixels, Uint2 size) {
-			for (size_t i = 0; i < pixel_amount; i++)
-				texture_pixels[i] = pixels[i];
-		});
-	});
-	*/
+	SDL_SetTextureBlendMode(this->sdl_texture, SDL_BLENDMODE_BLEND);
 }
 
 nk::Texture::Texture(nk::Texture& copy) : Texture(*copy.nk_renderer, copy.getSize()) {
